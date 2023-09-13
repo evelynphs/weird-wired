@@ -1,6 +1,6 @@
 # WeirdWired
 
-## Link to website: https://weird-wired.adaptable.app/ (got disabled ;-;)
+### Link to website: https://weird-wired.adaptable.app/ (got disabled ;-;)
 
 ## Langkah-langkah pembuatan
 
@@ -131,7 +131,7 @@ Bisa, tetapi hal tersebut akan sulit dilakukan apabila kita mengerjakan lebih da
 
 Misalnya, dalam suatu komputer yang sama, terdapat project A dan project B. Project A dibuat lebih dahulu menggunakan **Django 4.0**. Beberapa lama kemudian, user menginstall **Django 4.2** untuk mengerjakan project B. Ketika user ingin kembali mengerjakan project A, kemungkinannya adalah banyak error yang akan terjadi karena konflik antara versi Django untuk project A **(4.0)** dengan versi Django yang saat itu terinstall di komputer **(4.2)**. Jika user memutuskan untuk kembali menginstall **Django 4.0** demi mengerjakan project A, maka untuk selanjutnya user akan mengalami kendala ketika ingin mengerjakan project B karena project B bergantung pada **Django 4.2**. Oleh karena itu, virtual environment sebaiknya digunakan untuk menghindari konflik antar versi seperti ini.
 
-## MVC, MVT, MVVM dan perbedaan dari ketiganya
+## MVC, MVT, MVVM
 MVC, MVT, dan MVVM adalah contoh dari software architecture pattern yang paling populer di kalangan para developer. Arsitektur ini dibuat dengan tujuan untuk memisahkan beberapa komponen aplikasi supaya lebih mudah untuk di-maintain.
 
    ### 1. MVC: Model-View-Control
