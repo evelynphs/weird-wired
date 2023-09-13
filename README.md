@@ -110,16 +110,42 @@
 - Masukkan nama `weird-wired` sebagai nama aplikasi sekaligus nama domain situs web aplikasi.
 - Klik checkbox `HTTP Listener on PORT`, kemudian klik `Deploy App` untuk memulai proses deployment aplikasi.
 
-# Bagan _request client_ ke web aplikasi berbasis Django
+## Bagan _request client_ ke web aplikasi berbasis Django
+![Request Client Map](https://github.com/evelynphs/weird-wired/blob/main/bagan.png)
+  Penjelasan:
+  1. Pertama, Django akan menerima `HTTP request` berupa URL, kemudian memeriksa `urls.py` untuk mencari pattern yang sesuai dengan URL request tersebut. Setelah ditemukan, Django akan memanggil fungsi view yang sesuai dengan URL tersebut dan mengirim _request_.
+  2. View pada `views.py` akan menghubungi `models.py`, kemudian mencari model yang relevan dengan _request_. Kemudian `models.py` akan mengoperasikan data sesuai dengan _request_, kemudian mengirimkan data tersebut kepada `views.py`.
+  3. View akan me-_render_ data ke dalam _template_ yang sesuai pada file HTML.
+  4. Tampilan HTML yang sudah di-_render_ kemudian diteruskan kepada browser sebagai `HTTP response` untuk ditampilkan kepada user.
 
-# Mengapa kita menggunakan virtual environment?
+
+## Mengapa kita menggunakan virtual environment?
 Secara *default*, setiap project yang ada dalam suatu komputer akan menggunakan direktori yang sama untuk menyimpan package dan dependencies dari project tersebut. Direktori ini dapat dianggap sebagai *global/base environment*. Hal ini dapat menjadi suatu kendala ketika kita mengerjakan lebih dari satu project dalam suatu komputer, di mana setiap project memiliki dependencies yang berbeda dari satu sama lain, seperti libaries dan modules yang berbeda, atau bahkan versi python yang berbeda. Oleh karena itu, *virtual environment* dapat digunakan untuk membuat *development environment* yang berbeda untuk tiap project, sehingga project-project tersebut akan terpisah dari satu sama lain. 
 
 Ketika diaktifkan, *virtual environment* akan "mengisolasi" sebuah project dari *global/base environment* sehingga *dependencies* untuk project tersebut akan tetap konsisten dan tidak "tercampur" atau "bertabrakan" dengan komponen-komponen lain yang ada pada *global/base environment*. Jadi, ketika kita mengerjakan suatu project dengan *virtual environment*, komputer hanya akan fokus pada komponen-komponen yang diperlukan untuk project tersebut sehingga kita akan lebih mudah untuk mengatur *packages* dan *dependencies*-nya tanpa memengaruhi *global environment*.
 
-# Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
+## Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
 Bisa, tetapi hal tersebut akan sulit dilakukan apabila kita mengerjakan lebih dari satu project dalam satu komputer. Tanpa *virtual environment*, *dependecies* dan versi python dari project-project yang berbeda bisa saling "bertabrakan". 
 
 Misalnya, dalam suatu komputer yang sama, terdapat project A dan project B. Project A dibuat lebih dahulu menggunakan **Django 4.0**. Beberapa lama kemudian, user menginstall **Django 4.2** untuk mengerjakan project B. Ketika user ingin kembali mengerjakan project A, kemungkinannya adalah banyak error yang akan terjadi karena konflik antara versi Django untuk project A **(4.0)** dengan versi Django yang saat itu terinstall di komputer **(4.2)**. Jika user memutuskan untuk kembali menginstall **Django 4.0** demi mengerjakan project A, maka untuk selanjutnya user akan mengalami kendala ketika ingin mengerjakan project B karena project B bergantung pada **Django 4.2**. Oleh karena itu, virtual environment sebaiknya digunakan untuk menghindari konflik antar versi seperti ini.
 
-# MVC, MVT, MVVM dan perbedaan dari ketiganya
+## MVC, MVT, MVVM dan perbedaan dari ketiganya
+MVC, MVT, dan MVVM adalah contoh dari software architecture pattern yang paling populer di kalangan para developer. Arsitektur ini dibuat dengan tujuan untuk memisahkan beberapa komponen aplikasi supaya lebih mudah untuk di-maintain.
+
+   ### 1. MVC: Model-View-Control
+   Arsitektur ini membagi _code_ program ke dalam 3 bagian, yaitu:
+   - Model: Komponen yang bertanggungjawab mengatur data aplikasi. Komponen ini digunakan untuk memanipulasi, memodifikasi, dan memproses data pada database.
+   - View: Merupakan UI (User Interface) dari aplikasi yang mengatur tampilan yang dapat dilihat oleh user. View akan memvisualisasikan data yang tersimpan dalam model, kemudian mengatur interaksi antara user dengan data tersebut.
+   - Control: Komponen yang mengintegrasikan view dan model. Control akan mengatur interaksi antara data dalam model dan proses yang terjadi dalam view.
+
+   ### 2. MVT: Model-View-Template
+   Arsitektur ini mirip dengan MVC, tapi tanpa bagian Control. Pada arsitektur ini, bagian Control sudah di-handle oleh framework.
+   - Model: Berperan sebagai _interface_ data dan sebagai struktur logika dibalik suatu aplikasi web.
+   - View: Berinteraksi dengan model, membawa data dari model, dan me-_render_ template berdasarkan data tersebut. 
+   - Template: Komponen yang sepenuhnya berperan untuk mengatur UI (User Interface). Template merupakan kode HTML yang akan me-_render_ data.
+
+   ### 3. MVVM: Model-View-ViewModel
+   Arsitektur ini memisahkan _logic_ dari tampilan data (view dan UI) dari _logic_ inti suatu aplikasi. Ketiga bagian dari arsitektur ini yaitu:
+   - Model: berperan mengatur abstraksi dari data dan bekerjasama dengan ViewModel untuk mengambil serta menyimpan data.
+   - View: merupakan UI (User Interface) yang bertugas menampilkan data kepada user dan menginformasikan ViewModel mengenai apa yang dilakukan oleh user. 
+   - ViewModel: berperan sebagai perantara antara model dan view, mengoperasikan data dalam model yang relevan dengan view.
