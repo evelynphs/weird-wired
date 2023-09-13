@@ -1,5 +1,7 @@
 # WeirdWired
 
+## Link to website: https://weird-wired.adaptable.app/ (got disabled ;-;)
+
 ## Langkah-langkah pembuatan
 
 ### 1. Membuat sebuah proyek Django baru
@@ -111,7 +113,7 @@
 - Klik checkbox `HTTP Listener on PORT`, kemudian klik `Deploy App` untuk memulai proses deployment aplikasi.
 
 ## Bagan _request client_ ke web aplikasi berbasis Django
-![Request Client Map](https://github.com/evelynphs/weird-wired/blob/main/bagan.png)
+![Request Client Map](https://github.com/evelynphs/weird-wired/blob/main/bagan.png) <br>
   Penjelasan:
   1. Pertama, Django akan menerima `HTTP request` berupa URL, kemudian memeriksa `urls.py` untuk mencari pattern yang sesuai dengan URL request tersebut. Setelah ditemukan, Django akan memanggil fungsi view yang sesuai dengan URL tersebut dan mengirim _request_.
   2. View pada `views.py` akan menghubungi `models.py`, kemudian mencari model yang relevan dengan _request_. Kemudian `models.py` akan mengoperasikan data sesuai dengan _request_, kemudian mengirimkan data tersebut kepada `views.py`.
