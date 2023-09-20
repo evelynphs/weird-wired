@@ -332,3 +332,20 @@ HTML **tidak** digunakan untuk menyimpan dan mentransmisi data, melainkan diguna
 - Struktur data JSON cenderung sederhana dan "ringan", sehingga transmisi data dapat dilakukan dengan cepat. Hal ini dapat mempermudah transfer data dalam jumlah besar, meningkatkan kecepatan respon suatu aplikasi web, dan mengurangi _bandwith_. 
 
 ## Screenshot dari hasil akses URL pada Postman
+### 1. HTML
+![HTML response](https://github.com/evelynphs/weird-wired/blob/main/images/html_data.png)
+
+### 2. XML
+![XML response](https://github.com/evelynphs/weird-wired/blob/main/images/xml_data.png)
+
+### 3. JSON
+![JSON response](https://github.com/evelynphs/weird-wired/blob/main/images/json_data.png)
+
+### 4. XML by ID
+![XML response](https://github.com/evelynphs/weird-wired/blob/main/images/xml_id_data.png)
+
+### 5. JSON by ID
+![JSON response](https://github.com/evelynphs/weird-wired/blob/main/images/json_id_data.png)
+
+
+
