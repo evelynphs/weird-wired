@@ -159,8 +159,9 @@ MVC, MVT, dan MVVM adalah contoh dari software architecture pattern yang paling 
 </details>
 
 <details>
-<summary>Tugas 2</summary>
+<summary>Tugas 3</summary>
 <br>
+
 # Tugas 3
 
 ## Langkah-langkah pengerjaan:
