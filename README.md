@@ -2,6 +2,10 @@
 
 ### Link to website: https://weird-wired.adaptable.app/ (got disabled ;-;)
 
+<details>
+<summary>Tugas 2</summary>
+<br>
+
 # Tugas 2
 ## Langkah-langkah pembuatan
 
@@ -152,8 +156,11 @@ MVC, MVT, dan MVVM adalah contoh dari software architecture pattern yang paling 
    - Model: berperan mengatur abstraksi dari data dan bekerjasama dengan ViewModel untuk mengambil serta menyimpan data.
    - View: merupakan UI (User Interface) yang bertugas menampilkan data kepada user dan menginformasikan ViewModel mengenai apa yang dilakukan oleh user. 
    - ViewModel: berperan sebagai perantara antara model dan view, mengoperasikan data dalam model yang relevan dengan view.
+</details>
 
-
+<details>
+<summary>Tugas 2</summary>
+<br>
 # Tugas 3
 
 ## Langkah-langkah pengerjaan:
@@ -347,5 +354,5 @@ HTML **tidak** digunakan untuk menyimpan dan mentransmisi data, melainkan diguna
 ### 5. JSON by ID
 ![JSON response](https://github.com/evelynphs/weird-wired/blob/main/images/json_id_data.png)
 
-
+</details>
 
