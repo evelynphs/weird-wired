@@ -1,5 +1,36 @@
-<h1>WeirdWired</h1>
-<h3>( pronounced: wɪrd waɪrd )</h3>
+{% extends 'base.html' %}
 
-<h4>Name: {{ name }}</h4>
-<h4>Class: {{ class }}</h4>
+{% block content %}
+    <h1>WeirdWired</h1> <h3>( pronounced: wɪrd waɪrd )</h3>
+    <h3>A collection of random items found to be scattered around The Wired.</h3>
+
+    <h4>Name: {{ name }}</h4>
+    <h4>Class: {{ class }}</h4>
+
+    <h5>You have collected {{items.count}} types of items from The Wired, {{total_item}} amount of items in total.</h5>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>
+    
+        {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <br />
+    
+    <a href="{% url 'main:create_item' %}">
+        <button>
+            Add New Item
+        </button>
+    </a>
+{% endblock content %}

@@ -2,6 +2,7 @@
 
 ### Link to website: https://weird-wired.adaptable.app/ (got disabled ;-;)
 
+# Tugas 2
 ## Langkah-langkah pembuatan
 
 ### 1. Membuat sebuah proyek Django baru
@@ -151,3 +152,183 @@ MVC, MVT, dan MVVM adalah contoh dari software architecture pattern yang paling 
    - Model: berperan mengatur abstraksi dari data dan bekerjasama dengan ViewModel untuk mengambil serta menyimpan data.
    - View: merupakan UI (User Interface) yang bertugas menampilkan data kepada user dan menginformasikan ViewModel mengenai apa yang dilakukan oleh user. 
    - ViewModel: berperan sebagai perantara antara model dan view, mengoperasikan data dalam model yang relevan dengan view.
+
+
+# Tugas 3
+
+## Langkah-langkah pengerjaan:
+
+### 1. Membuat input form untuk menambahkan objek model pada app sebelumnya.
+- Membuat file baru `forms.py` pada direktori `main` sebagai tempat untuk membuat struktur form
+- Membuat sebuah class untuk form dengan nama `ItemForm`, kemudian menyatakan jenis model yang akan digunakan untuk form ini, yaitu `Item`, lalu menentukan jenis field apa saja yang akan digunakan untuk menginput data pada model, yaitu `"name"`, `"amount"`, dan `"description`. 
+    ```python
+    from django.forms import ModelForm
+    from main.models import Item
+
+    class ItemForm(ModelForm):
+        class Meta:
+            model = Item
+            fields = ["name", "amount", "description"]
+    ```
+
+- Mengimport beberapa fungsi pada `views.py` dalam direktori `main`, yaitu fungsi `HttpResponseRedirect`, `ProductForm`, `reverse`, dan `ItemForm`. 
+    ```python
+    from django.http import HttpResponseRedirect
+    from django.http import HttpResponse
+    from main.forms import ItemForm
+    ```
+  Kemudian membuat sebuah fungsi baru yaitu `create_item`, yaitu fungsi yang akan mengambil data dari form dan otomatis menambahkannya pada data models ketika di-submit. Fungsi ini juga akan melakukan _redirect_ ke main page setelah user selesai men-submit form.
+    ```python
+    def create_item(request):
+    form = ItemForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_item.html", context)
+    ```
+
+- Membuat page HTML untuk tampilan form dengan membuat file baru bernama `create_item.html` pada direktori `main/templates`, kemudian mengisi file tersebut dengan code berikut:
+    ```html
+    {% extends 'base.html' %} 
+
+    {% block content %}
+    <h1>Add New Item</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Add Item"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    {% endblock %}
+    ```
+    Code `{{ form.as_table }}` digunakan untuk menampilkan form yang sudah dibuat pada `forms.py`, kemudian `<input type="submit" value="Add Item"/>` merupakan tombol submit mengirim data dan request kepada fungsi `create_item` pada `views.py`.
+
+- Menambahkan  button `Add New Item` yang apabila di-klik akan me-redirect ke `create_item.html`. Code berikut diletakkan sebelum `{% endblock content %}`.:
+    ```html
+    <a href="{% url 'main:create_item' %}">
+        <button>
+            Add New Item
+        </button>
+    </a>
+    ```
+
+- Pada `urls.py` dalam direktori `main`, import fungsi `create_item` dan tambahkan `path('create-item', create_item, name='create_item')` pada `urlpatterns` agar page `create_item.html` dapat diakses dan digunakan sesuai fungsi.
+
+
+### 2. Menambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID.
+
+- Agar data/objek dapat terlihat dalam bentuk tabel dengan format HTML di main page, tambahkan kode berikut ini pada `main.html` :
+    ```html
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>
+    
+        {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br />
+    ```
+
+  Kemudian, pada fungsi `show_main` di `views.py`, tambahkan `items = Item.objects.all()` dan `'items': items` agar main page terhubung dengan data yang telah disubmit dari form dan dapat menampilkannya. Posisi penempatannya adalah sebagai berikut:
+    ```python
+    def show_main(request):
+    items = Item.objects.all()
+
+    context = {
+        'name': 'Evelyn',
+        'class': 'PBP A',
+        'items': items ,
+    }
+
+    return render(request, "main.html", context)
+    ```
+
+- Untuk menampilkan data dalam bentuk XML dan JSON, import fungsi `HttpResponse` dan `serializers` pada `views.py`
+    ```python
+    from django.http import HttpResponse
+    from django.core import serializers
+    ```
+  Kemudian, tambahkan fungsi `show_xml` dan `show_json` sebagai berikut:
+    ```python
+    def show_xml(request):
+        data = Item.objects.all()
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+    def show_json(request):
+        data = Item.objects.all()
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+    Variabel `data = Item.objects.all()` digunakan untuk menyimpan seluruh data dari `Item`. `serializers` digunakan untuk men-_translate_ data pada model menjadi format data lain, dalam hal ini format xml dan json.
+
+- Untuk menampilkan data dalam bentuk XML by ID dan JSON by ID, tambahkan fungsi `show_xml_by_id` dan `show_json_by_id` pada `views.py` sebagai berikut:
+    ```python
+    def show_xml_by_id(request, id):
+    data = Item.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+    def show_json_by_id(request, id):
+        data = Item.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+    Variabel `data = Item.objects.filter(pk=id)` digunakan untuk menyimpan data dari `Item` berdasarkan ID tertentu.
+
+### 3. Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
+- Buka `urls.py` pada direktori `main`, kemudian import fungsi `show_xml`, `show_json`, `show_xml_by_id`, dan `show_json_by_id` sebagai berikut:
+    ```python
+    from main.views import show_main, create_item, show_xml, show_json, show_xml_by_id, show_json_by_id
+    ```
+
+- Tambahkan path untuk masing-masing fungsi tersebut ke dalam `urlpatterns` sebagai berikut:
+    ```python
+    ...
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
+    ...
+    ```
+    
+## Apa perbedaan antara form POST dan form GET dalam Django?
+POSt adalah request yang digunakan untuk mengirim data ke server untuk membuat atau meng-_update_ suatu resource. Request ini akan mengirim data berupa input dari user kepada server untuk diolah. Data tersebut diletakkan di dalam _body_ dari request sehingga tidak terlihat oleh user.
+
+GET adalah request yang digunakan untuk membaca atau mengambil data dari suatu resource tertentu dalam server. Berbeda dengan POST, request GET ini mencantumkan data pada URL untuk spesifikasi dari resource yang ingin diambil. Data tersebut sangat mudah terlihat dan karena itu, request GET tidak cocok untuk mengirim data yang bersifat rahasia seperti password atau informasi pribadi.
+
+## Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+HTML **tidak** digunakan untuk menyimpan dan mentransmisi data, melainkan digunakan untuk mengatur struktur tampilan sebuah halaman, termasuk mengatur tampilan data-data yang muncul di halaman tersebut. XML dan JSON berbeda dari HTML. XML dan JSON digunakan untuk menyimpan dan mentransmisi data dalam struktur tertentu. Berikut perbedaan antara XML dan JSON:
+
+| XML | JSON |
+| :---: | :---: |
+|XML menyimpan data dalam struktur _tree_ dengan _namespace_ untuk merepresentasikan masing-masing kategori data.|Menggunakan struktur data seperti _map_ yang menggunakan pasangan _key-value_. |
+|Data direpresentasikan dalam bentuk elemen dalam DOM node. |Data direpresentasikan dalam bentuk _object_.|
+|Dokumen XML lebih kompleks dan ukuran file nya lebih besar sehingga transmisi datanya cenderung lebih lambat. |Dokumen JSON lebih sederhana sehingga ukuran file nya lebih kecil dan transmisi datanya cenderung lebih cepat.|
+|Mendukung semua tipe data yang didukung oleh JSON, dan beberapa tipe data lainnya yang cenderung lebih kompleks seperti _date_, _time_, dan _binary data_. |Hanya mendukung tipe data _string, number, boolean, Null, Array, Object_. |
+|Menggunakan XML DOM untuk membaca data dalam bentuk dokumen XML. |Menggunakan JSON.parse() untuk mem-_parse_ data dalam bentuk JSON string.|
+
+## Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+- Format data JSON mudah dibaca oleh manusia dan mudah di-_parse_ oleh sistem.
+- JSON dapat dikonversi ke dalam bentuk tipe data _JavaScript objects_ sehingga dapat mempermudah pengembangan aplikasi yang menggunakan JavaScript sebagai _scripting language_ utama.
+- JSON didukung oleh sebagian besar browser, server web, dan API web modern sehingga dengan menggunakan JSON, pertukaran data antar sistem atau _environment_ yang berbeda akan lebih mudah untuk dilakukan.
+- Struktur data JSON cenderung sederhana dan "ringan", sehingga transmisi data dapat dilakukan dengan cepat. Hal ini dapat mempermudah transfer data dalam jumlah besar, meningkatkan kecepatan respon suatu aplikasi web, dan mengurangi _bandwith_. 
+
+## Screenshot dari hasil akses URL pada Postman
