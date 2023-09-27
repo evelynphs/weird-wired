@@ -645,9 +645,23 @@ HTML **tidak** digunakan untuk menyimpan dan mentransmisi data, melainkan diguna
 - Lakukan `python manage.py makemigrations` dan `python manage.py migrate` untuk menyimpan perubahan model yang telah dilakukan.
 
 ## Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+UserCreationForm adalah sebuah modul bawaan dari Django yang dapat digunakan untuk meng-_handle_ pendaftaran user baru dalam suatu aplikasi web. Modul ini menyediakan tiga field data akan di-_assign_ ke seorang user, yaitu field username, password1, dan password2 (field password2 ini digunakan untuk konfirmasi terhadap isi dari password1). Kelebihan dari UserCreationForm ini adalah praktis untuk digunakan sebagai sistem registrasi sehingga developer tidak perlu membuat sistem regitrasi user dari _scratch_. UserCreationForm juga sudah disertai dengan validasi username dan password sehingga developer tidak harus mengatur validasi ini secara manual. Kekurangannya adalah field yang disediakan pada modul ini sangat terbatas. Jika kita ingin menambahkan field, kita harus meng-_extend_ UserCreationForm tersebut dengan sebuah class berisi form yang sesuai dengan field yang ingin ditambahkan. 
 
 ## Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+Autentikasi adalah suatu proses validasi untuk memferivikasi identitas dari user yang sedang berinteraksi dengan sistem. Proses ini memastikan siapa yang sedang berinteraksi dengan sistem berdasarkan data-data yang dapat divalidasi seperti username, password, PIN, dll.
+
+Berbeda dengan autentikasi, otorisasi dijalankan setelah proses autentikasi. Otorisasi adalah proses di mana sistem akan memberikan batasan akses yang sesuai kepada user yang sudah lolos proses autentikasi. Sistem akan menentukan apakah user tersebut dapat mengakses suatu sumber tertentu.
+
+Baik autentikasi maupun otorisasi merupakan hal yang penting untuk menjaga keamanan data dalam suatu sistem, terutama data yang bersifat pribadi atau rahasia. Tanpa keduanya, suatu sistem akan rentan untuk mengalami kebocoran data akibat akses data tanpa izin dari pihak yang semestinya tidak memiliki hak akses. Kebocoran data dapat mengakibatkan adanya orang lain yang menggunakan data korban tanpa izin untuk hal-hal yang berbahaya tanpa sepengetahuan korban. Misalnya, pembobolan rekening, terorisme, dan penyamaran kejahatan atas nama korban seperti pembelian barang ilegal atas nama korban.
 
 ## Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+Cookies merupakan sejumlah kecil data yang digunakan oleh browser untuk mengidentifikasi seorang user. Cookies akan membantu browser untuk "mengingat" seorang user dengan cara menyimpan beberapa data terkait apa yang dilakukan oleh user tersebut, seperti misalnya kapan terkahir kali user tersebut melakukan login, riwayat pencarian user, preferensi user terkait konten yang sering dicarinya, alamat email user, dan lain-lain. Setiap cookie disimpan dalam bentuk pasangan _key-value_.
+
+Pada django, kita bisa melakukan _set_ pada cookies dengan menggunakan method `set_cookie()` dan kita bisa mendapatkan value dari sebuah cookie dengan menggunakan method `request.COOKIES['key']`. Cara kerja cookies pada django adalah sebagai berikut:
+- Ketika HTTP request dikirimkan kepada server oleh browser, server akan memberikan response beserta dengan cookie.
+- Cookie tersebut diterima oleh browser dan disimpan.
+- Sekarang, setiap kali HTTP request dikirimkan kepada server, browser akan mengirimkan kembali cookie tersebut kepada server hingga cookie tersebut "kadaluarsa".
+- Saat cookie sudah "kadaluarsa", cookie tersebut akan dihapus dari browser.  
 
 ## Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Dalam pengembangan web, cookies tidak selalu aman. Ada beberapa risiko serangan terdahap cookies yang harus diwaspadai. Terkadang, cookies menyimpan beberapa informasi pribadi yang cukup sensitif. Apabila cookies tidak di-_handle_ dengan baik, maka cookies akan rawan terhadap akses tanpa izin yang dilakukan oleh pihak tak bertanggungjawab untuk mencuri data di dalamnya. Salah satu contoh serangan yang harus diwaspadai adalah _cookie poisoning_. _Cookie poisoning_ adalah suatu tindakan memanipulasi cookie agar pelaku bisa mendapatkan akses tanpa otorasasi ke akun seorang user, kemudian mencuri identitas atau data-data milik user tersebut.
