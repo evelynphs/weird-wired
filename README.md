@@ -357,6 +357,10 @@ HTML **tidak** digunakan untuk menyimpan dan mentransmisi data, melainkan diguna
 
 </details>
 
+<details>
+<summary>Tugas 4</summary>
+<br>
+
 # Tugas 4
 
 ## Langkah-langkah pengerjaan:
@@ -665,3 +669,5 @@ Pada django, kita bisa melakukan _set_ pada cookies dengan menggunakan method `s
 
 ## Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
 Dalam pengembangan web, cookies tidak selalu aman. Ada beberapa risiko serangan terdahap cookies yang harus diwaspadai. Terkadang, cookies menyimpan beberapa informasi pribadi yang cukup sensitif. Apabila cookies tidak di-_handle_ dengan baik, maka cookies akan rawan terhadap akses tanpa izin yang dilakukan oleh pihak tak bertanggungjawab untuk mencuri data di dalamnya. Salah satu contoh serangan yang harus diwaspadai adalah _cookie poisoning_. _Cookie poisoning_ adalah suatu tindakan memanipulasi cookie agar pelaku bisa mendapatkan akses tanpa otorasasi ke akun seorang user, kemudian mencuri identitas atau data-data milik user tersebut.
+
+</details>
