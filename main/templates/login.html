@@ -1,10 +1,40 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/style_login.css' %}" />
+
 {% block meta %}
-    <title>Login</title>
+<title>Login</title>
 {% endblock meta %}
 
 {% block content %}
+<style>
+    body{
+    background-color: #040404;
+    }
+
+    h1{
+        color: #FFFFFF;
+        font-family: "Courier";
+    }
+
+    td{
+        color: #FFFFFF;
+        font-family: "Courier";
+    }
+
+    a{
+        color: #FFFFFF;
+        font-family: "Courier";
+    }
+
+    .login_btn{
+        background-color: #66CDDD;
+    }
+</style>
+
+<!----------------------------------------------------------------------------------------------------------->
 
 <div class = "login">
 
@@ -25,7 +55,7 @@
 
             <tr>
                 <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
+                <td><input class="login_btn" type="submit" value="Login"></td>
             </tr>
         </table>
     </form>
@@ -38,7 +68,7 @@
         </ul>
     {% endif %}     
         
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+    <a href="{% url 'main:register' %}">Don't have an account yet? Register Now</a>
 
 </div>
 

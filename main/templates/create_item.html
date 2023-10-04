@@ -1,6 +1,41 @@
 {% extends 'base.html' %} 
 
 {% block content %}
+<style>
+    body{
+    background-color: #040404;
+    }
+
+    h1{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    th{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    td{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    a{
+        color: #FFFFFF;
+        font-family: "Courier";
+    }
+
+    .submit_btn{
+        background-color: #3CE9EA;
+        color: #040404;
+        font-family: "Courier";
+        font-weight: bold;
+    }
+</style>
+
+<!----------------------------------------------------------------------------------------------------------->
+
 <h1>Add New Item</h1>
 
 <form method="POST">
@@ -10,7 +45,7 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="Add Item"/>
+                <input type="submit" class="submit_btn" value="Add Item"/>
             </td>
         </tr>
     </table>

@@ -671,3 +671,40 @@ Pada django, kita bisa melakukan _set_ pada cookies dengan menggunakan method `s
 Dalam pengembangan web, cookies tidak selalu aman. Ada beberapa risiko serangan terdahap cookies yang harus diwaspadai. Terkadang, cookies menyimpan beberapa informasi pribadi yang cukup sensitif. Apabila cookies tidak di-_handle_ dengan baik, maka cookies akan rawan terhadap akses tanpa izin yang dilakukan oleh pihak tak bertanggungjawab untuk mencuri data di dalamnya. Salah satu contoh serangan yang harus diwaspadai adalah _cookie poisoning_. _Cookie poisoning_ adalah suatu tindakan memanipulasi cookie agar pelaku bisa mendapatkan akses tanpa otorasasi ke akun seorang user, kemudian mencuri identitas atau data-data milik user tersebut.
 
 </details>
+
+<details>
+<summary>Tugas 5</summary>
+<br>
+
+# Tugas 5
+
+## Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+
+### 1. Element Selector
+   Selector ini akan memilih semua elemen yang memiliki _tag_ yang sama dan mengubah propertinya berdasarkan _style_ yang diterapkan. Cocok digunakan ketika kita ingin mengubah properti dari semua element dengan _tag_ yang sama secara sekaligus tanpa membeda-bedakan tiap elemen tersebut.
+
+### 2. Class Selector
+   Selector ini akan memilih semua elemen dalam suatu class yang sama dan mengubah propertinya berdasarkan _style_ yang diterapkan. Cocok digunakan ketika kita hanya ingin mengubah properti dari sekelompok elemen tertentu yang dikelompokkan dalam sebuah class. _Style_ yang diterapkan pada class ini tidak akan mempengaruhi elemen lain yang berada di luar class.
+
+### 3. ID Selctor
+   Selector ini akan memilih elemen dengan ID tertentu dan mengubah propertinya berdasarkan _style_ yang diterapkan. Cocok digunakan ketika kita hanya ingin mengubah properti dari satu buah elemen yang kita pilih secara spesifik. Satu elemen dapat memiliki satu buah ID yang unik, satu ID yang sama tidak dapat diberikan pada lebih dari satu elemen. Kita dapat memberikan suatu ID khusus pada elemen-elemen yang ingin dipilih dan CSS akan mengenali elemen-elemen tersebut berdasarkan ID yang kita berikan.
+
+## Jelaskan HTML5 Tag yang kamu ketahui.
+
+   1. ```<nav>``` : digunakan untuk mendefinisikan link navigasi yang mengarah pada halaman-halaman lain dalam suatu web.
+   2. ```<audio>``` : digunakan untuk meng-_embed_ suatu konten berupa audio seperti MP3, WAV, atau OGG dengan source tertentu.
+   3. ```<video>``` : digunakan untuk meng-_embed_ suatu konten berupa video seperti MP4, WebM, atau OGG dengan source tertentu.
+   4. ```<header>``` : menandakan header dari suatu halaman web berupa suatu _container_ yang biasanya berisi informasi terkait "pengenalan" dari konten-konten yang terkait.
+   5. ```<footer>``` : menandakan header dari suatu halaman web berupa suatu _container_ yang biasanya berisi informasi tambahan terkait web tersebut.
+
+## Jelaskan perbedaan antara margin dan padding.
+   Margin dan padding sama-sama merupakan cara mengatur ruang atau jarak terhadap suatu elemen. Perbedaannya adalah margin akan mengatur ruang di **sisi luar** elemen, sedangkan padding akan mengatur ruang di **sisi dalam** elemen. Margin biasanya digunakan ketika kita ingin mengatur jarak antara suatu elemen dengan elemen lain. Padding digunakan ketika kita ingin mengatur jarak atau ruang antara konten di dalam suatu elemen dengan "pinggiran" dari elemen tersebut.
+
+## Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+   Bootstrap merupakan framework yang menyediakan template, class CSS, dan komponen yang telah dirancang sebelumnya dan "siap pakai" untuk membuat design tampilan UI. Berbeda dengan bootstrap, Tailwind merupakan framework yang menyediakan kelas-kelas utilisasi untuk design tampilan UI, di mana penggunaannya masih memerlukan kustomisasi dari developer yang menggunakannya. Bootstrap cocok digunakan ketika kita ingin mengutamakan stabilitas komponen dan kemudahan penggunakan, karena komponen-komponen yang kita gunakan dari bootstrap akan disesuaikan dengan design yang sudah dirancang "dari sananya", di mana design ini konsisten untuk seluruh komponen. Tailwind cocok digunakan jika kita ingin mengutamakan kustomisasi design dengan kombinasi class utilitas yang spesifik, di mana class-class utilitas ini telah disediakan oleh Tailwind. 
+
+## Langkah pengerjaan
+   Menambahkan tag ```<style>``` di bawah ```{% block content %}``` pada setiap file html di dalam direktori ```main/templates```, kemudian membuat design tampilan halaman web di dalam tag ```<style>``` tersebut menggunakan css sesuai keinginan.
+
+</details>
+

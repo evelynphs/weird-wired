@@ -4,7 +4,51 @@
     <title>Register</title>
 {% endblock meta %}
 
-{% block content %}  
+{% block content %}
+<style>
+    body{
+    background-color: #040404;
+    }
+
+    h1{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    th{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    td{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    a{
+        color: #FFFFFF;
+        font-family: "Courier";
+    }
+
+    ul{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    li{
+        color: #3CE9EA;
+        font-family: "Courier";
+    }
+
+    .submit_btn{
+        background-color: #3CE9EA;
+        color: #040404;
+        font-family: "Courier";
+        font-weight: bold;
+    }
+</style>  
+
+<!----------------------------------------------------------------------------------------------------------->
 
 <div class = "login">
     
@@ -16,7 +60,7 @@
                 {{ form.as_table }}  
                 <tr>  
                     <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
+                    <td><input type="submit" name="submit" class="submit_btn" value="Daftar"/></td>  
                 </tr>  
             </table>  
         </form>
