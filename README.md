@@ -1,6 +1,6 @@
 # WeirdWired
 
-### Link to website: https://weird-wired.adaptable.app/ (got disabled ;-;)
+### [Web Link](http://evelyn-paramesti-tugas.pbp.cs.ui.ac.id)
 
 <details>
 <summary>Tugas 2</summary>
