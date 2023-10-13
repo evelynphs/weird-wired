@@ -21,8 +21,18 @@
         cursor: pointer;
     }
 
+    .add-btn-cont{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
     .add-item-button{
         background-color: #66CDDD;
+        color: #040404;
         border: none;
         outline: none;
         border: 3px solid #0093BA;
@@ -30,8 +40,10 @@
         font-family: "Courier";
         font-size: 15px;
         font-weight: bold;
+        cursor: pointer;
 
-        margin-left: 50%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .webname{
@@ -56,21 +68,6 @@
         box-sizing: border-box;
         padding: 0;
     }
-
-    /* .header{
-        top: 0;
-        left: 0;
-        margin: 0;
-        background: transparent;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-sizing: border-box;
-        padding: 0;
-        outline: none;
-        border: 3px solid #66CDDD;
-    } */
 
     .navbar{
         margin-right: 40px;
@@ -217,6 +214,11 @@
         text-align: center;
     }
 
+    .mb-3{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
     .modal input{
         height: 100%;
         border: none;
@@ -239,6 +241,25 @@
         font-family: "Courier";
         padding-left: 15px;
         box-sizing: border-box;
+        height: 100px;
+    }
+
+    .modal-footer{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .modal-footer button{
+        background-color: #66CDDD;
+        color: #040404;
+        border: none;
+        outline: none;
+        border: 3px solid #0093BA;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
     }
 
     .open-modal{
@@ -250,6 +271,7 @@
 <header class="header">
     <a href="#" class="webname">W</a>
     <nav class="navbar">
+        <a href="#">Last Login: {{ last_login }}</a>
         <a href="#">User: {{ name }}</a>
         <a href="{% url 'main:logout' %}"><button>Logout</button></a>
     </nav>
@@ -264,7 +286,9 @@
     <p id="total_collect">- You have collected {{items.count}} types of items from The Wired, {{total_item}} amount of items in total. -</p>
 </div>
 
-<button class="add-item-button" id="open-modal-button">Add Product by AJAX</button>
+<div class="add-btn-cont">
+    <button class="add-item-button" id="open-modal-button">Add Item</button>
+</div>
 
 <div class="card-container" id="card-container"></div>
 
@@ -272,7 +296,7 @@
 <div class="modal" id="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h1>Add New Product</h1>
+            <h1>Add New Item</h1>
         </div>
         <div class="modal-body">
             <form id="form" onsubmit="return false;">
@@ -293,16 +317,11 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal">Close</button>
-            <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
         </div>
     </div>
 </div>
 </div>
-
-
-
-    <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
-
 
 <script>
     async function getItems() {

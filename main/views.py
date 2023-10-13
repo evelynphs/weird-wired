@@ -15,6 +15,7 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -83,6 +84,18 @@ def create_item(request):
     context = {'form': form}
     return render(request, "create_item.html", context)
 
+def edit_item(request, id):
+    item = Item.objects.get(pk = id)
+
+    form = ItemForm(request.POST or None, instance=item)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_item.html", context)
+
 def show_xml(request):
     data = Item.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
@@ -100,7 +113,6 @@ def show_json_by_id(request, id):
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def get_item_json(request):
-    #item = Item.objects.all()
     item = Item.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', item))
 

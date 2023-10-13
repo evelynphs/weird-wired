@@ -708,3 +708,175 @@ Dalam pengembangan web, cookies tidak selalu aman. Ada beberapa risiko serangan 
 
 </details>
 
+<details>
+<summary>Tugas 6</summary>
+<br>
+
+# Tugas 6
+
+## Perbedaan antara asynchronous programming dengan synchronous programming.
+   Pada synchronus programming, program akan dijalankan secara berurutan, yang berarti apabila suatu fungsi/proses akan dijalankan, maka program harus menunggu fungsi/proses sebelumnya selesai dijalankan. Sedangkan para asynchronus programming, program dapat menjalankan lebih dari satu fungsi/proses secara bersamaan, yang berarti suatu fungsi/proses dapat dijalankan tanpa harus menunggu fungsi/proses sebelumnya selesai.  
+
+## Paradigma event-driven programming
+   Merupakan suatu paradigma di mana suatu proses akan dijalankan oleh program sebagai respons dari suatu kejadian atau event tertentu yang sedang terjadi. Event yang dimaksud antara lain ketika suatu button di-klik, ketika suatu button di-hover, ketika key tertentu pada keyboard ditekan, ketika suatu fungsi dipanggil oleh fungsi lain, dll.
+
+   Salah satu contoh penerapannya pada tugas ini adalah function yang memunculkan modal "Add New Item" ketika button "Add Item" di-klik. Button "Add Item" dihubungkan dengan function openModal() dengan menggunakan `document.getElementById("open-modal-button").onclick = openModal`.
+
+## Penerapan asynchronous programming pada AJAX
+   AJAX menerapkan asynchronus programming ketika mengirim data ke server maupun ketika meminta/request data dari server. Dengan AJAX, halaman web dapat memperbaharui data secara asynchronus dan request yang diterima oleh server akan diproses pada _background_. Tahapan cara kerja AJAX adalah sebagai berikut:
+
+   1. Browser akan membuat sebuah JavaScript call yang kemudian mengaktifkan XMLHttpRequest.
+   2. Pada background, browser akan mengirimkan HTTP request ke server.
+   3. Server akan menerima request, mengambil data, dan mengirimkan kembali data tersebut ke browser.
+   4. Browser akan menerima data dari server, kemudian memproses data tersebut menggunakan JavaScript, dan data tersebut langsugn ditampilkan pada halaman web tanpa harus _reload_ terlebih dahulu.
+
+## Perbandingan Fetch API dan library jQuery
+   Fetch API cenderung lebih ringan dan fleksibel, Fetch API hanya fokus pada pembuatan HTTP request dan penanganan respons, serta lebih fleksibel dalam meng-_handle_ berbagai jenis data. Fetch API sendiri juga merupakan bagian dari JavaScript yang tidak memerlukan library atau dependencies tambahan. Berbeda dengan Fetch API, library jQuery merupakan library JavaScript yang menyediakan berbagai fitur dan utility untuk meng-_handle_ data. jQuery menyediakan banyak fitur untuk hal-hal yang dilakukan dalam web development di luar pembuatan HTTP request. Kode yang digunakan dalam jQuery cenderung lebih sederhana dan mudah dibaca. Baik Fetch API maupun jQuery memiliki kelebihannya masing-masing dan digunakan sesuai kebutuhan yang berbeda. Jika kita ingin membuat aplikasi web yang cenderung mementingkan "keringanan" dalam membuat HTTP request, kita bisa menggunakan Fetch API. Sedangkan jika kita ingin membuat sebuah browser dengan banyak fitur dan ingin menggunakan library yang menyediakan beragam fitur untuk _handle_ data di luar pembuatan HTTP request, kita bisa menggunakan library jQuery.
+
+## Langkah-langkah pengerjaan
+
+### 1. Ubah kode cards data item agar dapat mendukung AJAX GET.
+- Pada `views.py` dalam direktori `main`, buat sebuah fungsi dengan nama `get_item_json` sebagai berikut:
+    ```python
+    def get_item_json(request):
+        item = Item.objects.filter(user=request.user)
+        return HttpResponse(serializers.serialize('json', item))
+    ```
+   Kemudian, pada `urls.py`, import `get_item_json` dan tambahkan routing untuk fungsi tersebut pada `urlpatterns` sebagai berikut: `path('get-item/', get_item_json, name='get_item_json'),`
+
+- Pada `main.html` dalam direktori `main/templates`, tambahkan `<div class="card-container" id="card-container"></div>` sebagai struktur tempat menyusun cards. Kemudian, buat block `<script>` dan buat function `getItems()` dalam block tersebut sebagai berikut:
+    ```javascript
+    <script>
+    async function getItems() {
+        return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+    }
+    </script>
+    ```
+
+- Menambahkan fungsi `refreshItems()` pada block `<script>` untuk menampilkan card setiap item sebagai berikut:
+    ```javascript
+    ...
+    async function refreshItems() {
+        document.getElementById("card-container").innerHTML = ""
+        const items = await getItems()
+        let htmlString = ``
+        items.forEach((item) => {
+            htmlString += `\n<div class="cards">
+                <div class="front">
+                    <div class="front-content">
+                        <div class="title"><h2>${item.fields.name}</h2></div>
+                        <div class="amount"><h3>Amount: ${item.fields.amount}</h3></div>
+                        <div class="date_added"><p>Added:<br>${item.fields.date_added}</p></div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="desc"><p>${item.fields.description}</p></div>
+                </div>
+                </div>`
+        })
+        
+        document.getElementById("card-container").innerHTML = htmlString
+    }
+
+    refreshItems()
+    ...
+    ```
+
+### 2. Membuat modal dengan form untuk menambahkan item
+- Pada `views.py` dalam direktori `main`, import `from django.views.decorators.csrf import csrf_exempt`.
+- Buat sebuah fungsi baru bernama `add_item_ajax` yang dapat menerima request, sebagai berikut:
+    ```python
+    def add_item_ajax(request):
+        if request.method == 'POST':
+            name = request.POST.get("name")
+            amount = request.POST.get("amount")
+            description = request.POST.get("description")
+            date_added = request.POST.get("date_added")
+            user = request.user
+
+            new_item = Item(name=name, amount=amount, description=description, date_added = date_added, user=user)
+            new_item.save()
+
+            return HttpResponse(b"CREATED", status=201)
+
+        return HttpResponseNotFound()
+    ```
+- Tambahkan dekorator `@csrf_exempt` di atas fungsi `add_item_ajax`. Kemudian, pada `urls.py`, import `add_item_ajax` dan tambahkan routing untuk fungsi tersebut pada `urlpatterns` sebagai berikut: `path('create-ajax/', add_item_ajax, name='add_item_ajax')`.
+
+- Pada `main.html`, buat sebuah modal untuk menambahkan item sebagai berikut:
+    ```html
+    <div class="modal-cont" id="modal-cont">
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Add New Item</h1>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    ```
+- Tambahkan button untuk menampilan modal sebagai berikut:
+    ```html
+    <div class="add-btn-cont">
+        <button class="add-item-button" id="open-modal-button">Add Item</button>
+    </div>
+    ```
+- Pada block `<script>` yang ada dalam `main.html`, tambahkan fungsi dengan nama `addItem` sebagai berikut:
+    ```javascript
+    function addItem() {
+        fetch("{% url 'main:add_item_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshItems)
+
+        document.getElementById("form").reset()
+        modal.classList.remove("open-modal")
+        return false
+    }
+    ```
+    Kemudian, tambahkan fungsi `openModal()` dan `closeModal()` untuk menampilkan dan menutup modal sebagai berikut:
+    ```javascript
+    let modal = document.getElementById("modal-cont");
+    
+    function openModal(){
+        modal.classList.add("open-modal");
+    }
+
+    function closeModal(){
+        document.getElementById("form").reset()
+        modal.classList.remove("open-modal");
+    }
+    ```
+- Sambungkan button "Add Item" dan button-button pada modal dengan fungsi yang sesuai sebagai berikut:
+    ```javascript
+    document.getElementById("open-modal-button").onclick = openModal
+    document.getElementById("close-modal").onclick = closeModal
+    document.getElementById("button_add").onclick = addItem
+    ```
+
+### 3. Melakukan perintah collectstatic
+- Pada `settings.py` dalam direktori project `weird_wired`, tambahkan `import os` dan `STATIC_ROOT = os.path.join(BASE_DIR, 'static')`
+- Jalankan perintah `python manage.py collectstatic` pada terminal (pastikan path terminal berada pada path direktori utama project).
+
+</details>
