@@ -4,37 +4,8 @@
 
 <style>
     body{
-    background-color: #040404;
-    }
-
-    table, th, td{
-        border-style: solid;
-        border-color: #0093BA;
-    }
-
-    h1{
-        color: #3CE9EA;
-        font-family: "Courier";
-    }
-
-    h3{
-        color: #3CE9EA;
-        font-family: "Courier";
-    }
-
-    h4{
-        color: #3CE9EA;
-        font-family: "Courier";
-    }
-
-    th{
-        color: #3CE9EA;
-        font-family: "Courier";
-    }
-
-    td{
-        color: #3CE9EA;
-        font-family: "Courier";
+        background-color: #040404;
+        margin: 0;
     }
 
     a{
@@ -47,49 +18,346 @@
         color: #040404;
         font-family: "Courier";
         font-weight: bold;
+        cursor: pointer;
+    }
+
+    .add-item-button{
+        background-color: #66CDDD;
+        border: none;
+        outline: none;
+        border: 3px solid #0093BA;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 15px;
+        font-weight: bold;
+
+        margin-left: 50%;
+    }
+
+    .webname{
+        font-family: "Courier";
+        font-size: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        background-color: #0093BA;
+        height: 100%;
+        padding: 3px 10px;
+    }
+
+    .header{
+        top: 0;
+        left: 0;
+        margin: 0;
+        background-color: #66CDDD;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    /* .header{
+        top: 0;
+        left: 0;
+        margin: 0;
+        background: transparent;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0;
+        outline: none;
+        border: 3px solid #66CDDD;
+    } */
+
+    .navbar{
+        margin-right: 40px;
+    }
+
+    .navbar a{
+        font-size: 18px;
+        color: #040404;
+        margin-left: 40px;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    .navbar button{
+        background-color: #66CDDD;
+        border: none;
+        outline: none;
+        border: 3px solid #0093BA;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .intro{
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .intro p{
+        font-family: "Courier";
+        font-size: 17px;
+        font-weight: bold;
+        color: #66CDDD;
+        margin-top: 10px;
+    }
+
+    .intro h2{
+        font-family: "Courier";
+        font-weight: bold;
+        color: #66CDDD;
+        margin-bottom: 0px;
+    }
+
+    .total-collect{
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: "Courier";
+        font-weight: bold;
+        color: #66CDDD;
+        font-size: 15px;
+        margin-bottom: 0px;
+        margin-top: 100px;
+    }
+
+    .card-container{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cards{
+        background: transparent;
+        color: #FFFFFF;
+        outline: none;
+        border: 3px solid #3CE9EA;
+        width: 200px;
+        height: 250px;
+        text-align: center;
+        margin: 20px;
+        position: relative;
+        transition: transform 1500ms;
+        transform-style: preserve-3d;
+    }
+
+    .cards:hover{
+        cursor: pointer;
+        transform: rotateY(180deg);
+    }
+
+    .front,.back{
+        background: transparent;
+        outline: none;
+        border: 3px solid #3CE9EA;
+        width: 200px;
+        height: 250px;
+        position: absolute;
+        backface-visibility: hidden;
+        font-family: "Courier";
+        font-weight: bold;
+        color: #66CDDD;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .front-content{
+        margin-top: 30%;
+    }
+
+    .front h2{
+        font-size: 18px;
+    }
+
+    .front h3{
+        font-size: 15px;
+    }
+
+    .front p{
+        font-size: 15px;
+    }
+
+    .back{
+        transform: rotateY(180deg);
+    }
+
+    .back p{
+        font-size: 13px;
+    }
+
+    .modal-cont{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        position: absolute;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+    }
+
+    .modal{
+        color: #66CDDD;
+        background-color: #040404;
+        font-family: "Courier";
+        width: 400px;
+        outline: none;
+        border: 3px solid #66CDDD;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+    }
+
+    .modal input{
+        height: 100%;
+        border: none;
+        outline: none;
+        border: 3px solid #66CDDD;
+        background: transparent;
+        color: #66CDDD;
+        font-family: "Courier";
+        padding-left: 15px;
+        box-sizing: border-box;
+    }
+
+    .modal textarea{
+        height: 100%;
+        border: none;
+        outline: none;
+        border: 3px solid #66CDDD;
+        background: transparent;
+        color: #66CDDD;
+        font-family: "Courier";
+        padding-left: 15px;
+        box-sizing: border-box;
+    }
+
+    .open-modal{
+        visibility: visible;
     }
 </style>
 
 <!----------------------------------------------------------------------------------------------------------->
-    <h1>WeirdWired</h1> 
-    <h3>( pronounced: wɪrd waɪrd )</h3>
-    <h3>A collection of random items found to be scattered around The Wired.</h3>
+<header class="header">
+    <a href="#" class="webname">W</a>
+    <nav class="navbar">
+        <a href="#">User: {{ name }}</a>
+        <a href="{% url 'main:logout' %}"><button>Logout</button></a>
+    </nav>
+</header>
 
-    <h4>Name: {{ name }}</h4>
-    <h4>Class: {{ class }}</h4>
+<div class="intro">
+    <h2>[ WeirdWired ]</h2>
+    <p>/wɪrd waɪrd/ A collection of random items found to be scattered around The Wired.</p>
+</div>
 
-    <h4>You have collected {{items.count}} types of items from The Wired, {{total_item}} amount of items in total.</h4>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Date Added</th>
-        </tr>
+<div class="total-collect">
+    <p id="total_collect">- You have collected {{items.count}} types of items from The Wired, {{total_item}} amount of items in total. -</p>
+</div>
+
+<button class="add-item-button" id="open-modal-button">Add Product by AJAX</button>
+
+<div class="card-container" id="card-container"></div>
+
+<div class="modal-cont" id="modal-cont">
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1>Add New Product</h1>
+        </div>
+        <div class="modal-body">
+            <form id="form" onsubmit="return false;">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="col-form-label">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="col-form-label">Amount:</label>
+                    <input type="number" class="form-control" id="amount" name="amount"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="col-form-label">Description:</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal">Close</button>
+            <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+    <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
+
+
+<script>
+    async function getItems() {
+        return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+    }
+
+    async function refreshItems() {
+        document.getElementById("card-container").innerHTML = ""
+        const items = await getItems()
+        let htmlString = ``
+        items.forEach((item) => {
+            htmlString += `\n<div class="cards">
+                <div class="front">
+                    <div class="front-content">
+                        <div class="title"><h2>${item.fields.name}</h2></div>
+                        <div class="amount"><h3>Amount: ${item.fields.amount}</h3></div>
+                        <div class="date_added"><p>Added:<br>${item.fields.date_added}</p></div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="desc"><p>${item.fields.description}</p></div>
+                </div>
+                </div>`
+        })
+        
+        document.getElementById("card-container").innerHTML = htmlString
+    }
+
+    refreshItems()
+
+    //----------------------------
+    let modal = document.getElementById("modal-cont");
     
-        {% for item in items %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.date_added}}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    
-    <br />
-    
-    <a href="{% url 'main:create_item' %}">
-        <button>
-            Add New Item
-        </button>
-    </a>
+    function openModal(){
+        modal.classList.add("open-modal");
+    }
 
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
+    function closeModal(){
+        document.getElementById("form").reset()
+        modal.classList.remove("open-modal");
+    }
+    
+    function addItem() {
+        fetch("{% url 'main:add_item_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshItems)
 
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>
+        document.getElementById("form").reset()
+        modal.classList.remove("open-modal")
+        return false
+    }
+
+    document.getElementById("open-modal-button").onclick = openModal
+    document.getElementById("close-modal").onclick = closeModal
+    document.getElementById("button_add").onclick = addItem
+</script>
 {% endblock content %}

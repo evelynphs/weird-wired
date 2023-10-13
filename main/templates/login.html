@@ -11,65 +11,135 @@
 {% block content %}
 <style>
     body{
-    background-color: #040404;
+        background-color: #040404;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
     }
 
     h1{
-        color: #FFFFFF;
+        color: #3CE9EA;
         font-family: "Courier";
-    }
-
-    td{
-        color: #FFFFFF;
-        font-family: "Courier";
+        text-align: center;
+        margin-bottom: 35px;
     }
 
     a{
-        color: #FFFFFF;
+        color: #b9cbca;
         font-family: "Courier";
+    }
+
+    p{
+        color: #b9cbca;
+        font-family: "Courier";
+        margin: 5px;
+        text-align: center;
+    }
+
+    li{
+        color: #b9cbca;
+        font-family: "Courier";
+        text-align: center;
+    }
+
+    .login{
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 25%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .messages{
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        text-align: center;
+    }
+
+    .login_main{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .input-box{
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        align-content: center;
+        width: 75%;
+        height: 40px;
+    }
+
+    .input-box input{
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        border: 3px solid #66CDDD;
+        background: transparent;
+        color: #66CDDD;
+        font-family: "Courier";
+        padding-left: 15px;
+        box-sizing: border-box;
     }
 
     .login_btn{
         background-color: #66CDDD;
+        border: none;
+        outline: none;
+        border: 3px solid #0093BA;
+        width: 75%;
+        height: 40px;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 5px;
+        margin-bottom: 30px;
     }
 </style>
 
 <!----------------------------------------------------------------------------------------------------------->
 
-<div class = "login">
+<div class = "login_main">
+    
+    <div class = "login">
 
-    <h1>Login</h1>
+    <h1>[ Login ]</h1>
 
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
 
-            <tr>
-                <td></td>
-                <td><input class="login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
+        <p>Username</p>
+        <div class="input-box">
+            <input type="text" name="username" placeholder="Username">
+        </div>
+
+        <p>Password</p>
+        <div class="input-box">
+            <input type="password" name="password" placeholder="Password">
+        </div>
+
+        <input class="login_btn" type="submit" value="Login">
     </form>
+    </div>
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    <a href="{% url 'main:register' %}">Don't have an account yet? Register Now</a>
+    <div class="messages">
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}     
+            
+        <p>Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></p>
+    </div>
 
 </div>
-
 {% endblock content %}
