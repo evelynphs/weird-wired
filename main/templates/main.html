@@ -3,6 +3,25 @@
 {% block content %}
 
 <style>
+    *::-webkit-scrollbar{
+        background-color: #0093BA;
+        border: 3px solid #040404;
+    }
+
+    *::-webkit-scrollbar-thumb{
+        background-color: #66CDDD;
+        border: 3px solid #040404;
+        box-shadow: 0 0 0 2px #0093BA inset;
+    }
+
+    *::-webkit-scrollbar-button{
+        background-color: #66CDDD;
+        border: 3px solid #040404;
+        box-shadow: 0 0 0 2px #0093BA inset;
+        height: 16px;
+        width: 1em;
+    }
+
     body{
         background-color: #040404;
         margin: 0;
@@ -25,7 +44,7 @@
         justify-content: center;
         align-items: center;
         display: flex;
-        margin-top: 20px;
+        margin-top: 40px;
         margin-bottom: 20px;
         width: 100%;
     }
@@ -35,12 +54,13 @@
         color: #040404;
         border: none;
         outline: none;
-        border: 3px solid #0093BA;
+        border: 4px solid #0093BA;
         box-sizing: border-box;
         font-family: "Courier";
         font-size: 15px;
         font-weight: bold;
         cursor: pointer;
+        width: 150px;
 
         margin-left: auto;
         margin-right: auto;
@@ -96,7 +116,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        margin-top: 40px;
+        margin-top: 80px;
     }
 
     .intro p{
@@ -130,6 +150,9 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        box-sizing: border-box;
+        padding-left: 50px;
+        padding-right: 50px;
     }
 
     .cards{
@@ -190,10 +213,44 @@
         font-size: 13px;
     }
 
+    .edit-button{
+        background-color: #3CE9EA;
+        color: #040404;
+        width: 110px;
+        border: none;
+        outline: none;
+        border: 4px solid #0093BA;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+
+        margin-top: 20px;
+    }
+
+    .delete-button{
+        background-color: #040404;
+        color: #DB4452;
+        width: 110px;
+        border: none;
+        outline: none;
+        border: 3px solid #DB4452;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+
+        margin-top: 15px;
+    }
+
+    /* Modal for creating new item ============================*/
+
     .modal-cont{
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,0.7);
+        background-color: rgba(0,0,0,0.9);
         position: absolute;
         top: 0;
         left: 0;
@@ -227,7 +284,7 @@
         background: transparent;
         color: #66CDDD;
         font-family: "Courier";
-        padding-left: 15px;
+        padding-left: 5px;
         box-sizing: border-box;
     }
 
@@ -239,7 +296,7 @@
         background: transparent;
         color: #66CDDD;
         font-family: "Courier";
-        padding-left: 15px;
+        padding-left: 5px;
         box-sizing: border-box;
         height: 100px;
     }
@@ -262,6 +319,148 @@
         cursor: pointer;
     }
 
+    /* ===================================================*/
+
+    /* Modal for EDITING new item ============================*/
+
+    .modal-edit-cont{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.9);
+        position: absolute;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+    }
+
+    .modal-edit{
+        color: #66CDDD;
+        background-color: #040404;
+        font-family: "Courier";
+        width: 400px;
+        outline: none;
+        border: 3px solid #66CDDD;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+    }
+
+    .edit-3{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .modal-edit input{
+        height: 100%;
+        border: none;
+        outline: none;
+        border: 3px solid #66CDDD;
+        background: transparent;
+        color: #66CDDD;
+        font-family: "Courier";
+        padding-left: 5px;
+        box-sizing: border-box;
+    }
+
+    .modal-edit textarea{
+        height: 100%;
+        border: none;
+        outline: none;
+        border: 3px solid #66CDDD;
+        background: transparent;
+        color: #66CDDD;
+        font-family: "Courier";
+        padding-left: 5px;
+        box-sizing: border-box;
+        height: 100px;
+    }
+
+    .modal-edit-footer{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .modal-edit-footer button{
+        background-color: #66CDDD;
+        color: #040404;
+        border: none;
+        outline: none;
+        border: 3px solid #0093BA;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    /* ===================================================*/
+
+    /* Modal for DELETING new item ============================*/
+    .modal-delete-cont{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+        position: absolute;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+    }
+
+    .modal-delete{
+        color: #DB4452;
+        background-color: #040404;
+        font-family: "Courier";
+        width: 400px;
+        outline: none;
+        border: 3px solid #DB4452;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+    }
+
+    .confirm-message{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .modal-delete-footer{
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    #cancel-delete-btn{
+        background-color: #040404;
+        color: #B9CBCA;
+        border: none;
+        outline: none;
+        border: 2px solid #B9CBCA;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #confirm-delete-btn{
+        background-color: #040404;
+        color: #DB4452;
+        border: none;
+        outline: none;
+        border: 2px solid #DB4452;
+        box-sizing: border-box;
+        font-family: "Courier";
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+
+        margin-left: 20px;
+    }
+
+    /* ===================================================*/
     .open-modal{
         visibility: visible;
     }
@@ -269,9 +468,9 @@
 
 <!----------------------------------------------------------------------------------------------------------->
 <header class="header">
-    <a href="#" class="webname">W</a>
+    <a href="#" class="webname">◉</a>
     <nav class="navbar">
-        <a href="#">Last Login: {{ last_login }}</a>
+        <!-- <a href="#">Last Login: {{ last_login }}</a> -->
         <a href="#">User: {{ name }}</a>
         <a href="{% url 'main:logout' %}"><button>Logout</button></a>
     </nav>
@@ -282,8 +481,8 @@
     <p>/wɪrd waɪrd/ A collection of random items found to be scattered around The Wired.</p>
 </div>
 
-<div class="total-collect">
-    <p id="total_collect">- You have collected {{items.count}} types of items from The Wired, {{total_item}} amount of items in total. -</p>
+<div class="total-collect" id="total_collect">
+    <p>- You have collected {{items.count}} types of items from The Wired, {{total_item}} amount of items in total. -</p>
 </div>
 
 <div class="add-btn-cont">
@@ -292,6 +491,8 @@
 
 <div class="card-container" id="card-container"></div>
 
+
+<!-- Modal for creating new item -->
 <div class="modal-cont" id="modal-cont">
 <div class="modal" id="modal">
     <div class="modal-content">
@@ -316,12 +517,58 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal">Cancel</button>
             <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
         </div>
     </div>
 </div>
 </div>
+
+<!-- Modal for editing item data -->
+<div class="modal-edit-cont" id="modal-edit-cont">
+    <div class="modal-edit" id="modal-edit">
+        <div class="modal-edit-content">
+            <div class="modal-edit-header">
+                <h1>Edit Item</h1>
+            </div>
+            <div class="modal-edit-body">
+                <form id="form-edit" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="edit-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name-edit" name="name-edit"></input>
+                    </div>
+                    <div class="edit-3">
+                        <label for="price" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount-edit" name="amount-edit"></input>
+                    </div>
+                    <div class="edit-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description-edit" name="description-edit"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-edit-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-edit-modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="button-edit-modal" data-bs-dismiss="modal">Edit Item</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for deleting item -->
+<div class="modal-delete-cont" id="modal-delete-cont">
+    <div class="modal-delete">
+        <div class="x"><h1>✖</h1></div>
+        <div class="confirm"><h2>Delete Item?</h2></div>
+        <div class="confirm-message" id="confirm-message"><p>Are you sure you want to delete?</p></div>
+        <div class="modal-delete-footer">
+            <button type="button" id="cancel-delete-btn">Cancel</button>
+            <button type="button" id="confirm-delete-btn">Delete</button>
+        </div>
+    </div>
+</div>
+
 
 <script>
     async function getItems() {
@@ -330,43 +577,68 @@
 
     async function refreshItems() {
         document.getElementById("card-container").innerHTML = ""
+        document.getElementById("total_collect").innerHTML = ""
         const items = await getItems()
+        const items_count = items.length
+        var items_amount_count = 0
         let htmlString = ``
         items.forEach((item) => {
             htmlString += `\n<div class="cards">
                 <div class="front">
                     <div class="front-content">
-                        <div class="title"><h2>${item.fields.name}</h2></div>
+                        <div class="title" id="name-${item.pk}"><h2>${item.fields.name}</h2></div>
                         <div class="amount"><h3>Amount: ${item.fields.amount}</h3></div>
+                        <div id="amount-${item.pk}" style="visibility:hidden"><h2>${item.fields.amount}</h2></div>
                         <div class="date_added"><p>Added:<br>${item.fields.date_added}</p></div>
                     </div>
                 </div>
                 <div class="back">
-                    <div class="desc"><p>${item.fields.description}</p></div>
+                    <div class="desc" id="desc-${item.pk}"><p>${item.fields.description}</p></div>
+                    <div class="edit_button">
+                        <button class ="edit-button" onclick="editItem(${item.pk})">Edit item</button>
+                    </div>
                     <div class="delete_button">
-                        <button class ="delete-button" onclick="deleteItem(${item.pk})">Delete item</button>
+                        <button class ="delete-button" onclick="deleteConfirm(${item.pk})">Delete item</button>
                     </div>
                 </div>
                 </div>`
+
+            items_amount_count += item.fields.amount
         })
         
         document.getElementById("card-container").innerHTML = htmlString
+        document.getElementById("total_collect").innerHTML = `<p>- You have collected ${items_count} types of items from The Wired, ${items_amount_count} amount of items in total. -</p>`
     }
 
     refreshItems()
 
     //----------------------------
     let modal = document.getElementById("modal-cont");
+    let modalEdit = document.getElementById("modal-edit-cont");
+    let modalDelete = document.getElementById("modal-delete-cont");
     
     function openModal(){
         modal.classList.add("open-modal");
+    }
+
+    function openEditModal(){
+        modalEdit.classList.add("open-modal");
     }
 
     function closeModal(){
         document.getElementById("form").reset()
         modal.classList.remove("open-modal");
     }
-    
+
+    function closeEditModal(){
+        document.getElementById("form-edit").reset()
+        modalEdit.classList.remove("open-modal");
+    }
+
+    function closeDeleteModal(){
+        modalDelete.classList.remove("open-modal");
+    }
+
     function addItem() {
         fetch("{% url 'main:add_item_ajax' %}", {
             method: "POST",
@@ -378,18 +650,65 @@
         return false
     }
 
+    function editItem(id){
+        openEditModal();
+
+        //get item data from html
+        const name = document.getElementById(`name-${id}`);
+        const amount = document.querySelector(`#amount-${id}`);
+        const desc = document.getElementById(`desc-${id}`);
+
+        document.getElementById("name-edit").value = name.textContent;
+        document.getElementById("amount-edit").value = amount.textContent;
+        document.getElementById("description-edit").value = desc.textContent;
+
+        function editHandle(){
+            editItemConfirm(id);
+        }
+
+        document.getElementById("button-edit-modal").onclick = editHandle;
+    }
+
+    async function editItemConfirm(id){
+        let url = "{% url 'main:edit_item_ajax' '123' %}".replace('123', id);
+        const response = await fetch(url, {
+            method: "POST",
+            body: new FormData(document.querySelector('#form-edit'))
+        });
+
+        if(response.ok){
+            closeEditModal();
+            refreshItems();
+        }
+    }
+
+    function deleteConfirm(id){
+        modalDelete.classList.add("open-modal");
+        const name = document.getElementById(`name-${id}`).textContent;
+        document.getElementById("confirm-message").innerHTML = `<p>Are you sure you want to delete ${name}?</p>`
+
+        function deleteHandle(){
+            deleteItem(id);
+        }
+
+        document.getElementById("confirm-delete-btn").onclick = deleteHandle;
+    }
+
     async function deleteItem(id) {
         let url = "{% url 'main:delete_item_ajax' '123' %}".replace('123', id);
         const response = await fetch(url, {
             method: "DELETE",
         });
         if (response.ok) {
+            closeDeleteModal();
             refreshItems();
         }
     }
 
     document.getElementById("open-modal-button").onclick = openModal
     document.getElementById("close-modal").onclick = closeModal
+    document.getElementById("close-edit-modal").onclick = closeEditModal
     document.getElementById("button_add").onclick = addItem
+    document.getElementById("cancel-delete-btn").onclick = closeDeleteModal
 </script>
 {% endblock content %}

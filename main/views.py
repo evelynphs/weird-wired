@@ -34,7 +34,7 @@ def show_main(request):
         'class': 'PBP A',
         'items': items,
         'total_item': total_item,
-        'last_login': request.COOKIES['last_login'],
+        #'last_login': request.COOKIES['last_login'],
     }
 
     return render(request, "main.html", context)
@@ -127,6 +127,25 @@ def add_item_ajax(request):
 
         new_item = Item(name=name, amount=amount, description=description, date_added = date_added, user=user)
         new_item.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def edit_item_ajax(request, id):
+    if request.method == 'POST':
+        name = request.POST.get("name-edit")
+        amount = request.POST.get("amount-edit")
+        description = request.POST.get("description-edit")
+        user = request.user
+
+        item = Item.objects.get(pk = id)
+
+        item.name = name
+        item.amount = amount
+        item.description = description
+        item.save()
 
         return HttpResponse(b"CREATED", status=201)
 
