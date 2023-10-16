@@ -18,10 +18,11 @@
         min-height: 90vh;
     }
 
-    h1{
+    h2{
         color: #3CE9EA;
         font-family: "Courier";
         text-align: center;
+        font-size: 28px;
         margin-bottom: 35px;
     }
 
@@ -42,6 +43,19 @@
         font-family: "Courier";
         text-align: center;
     }
+    
+    .messages{
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        text-align: center;
+    }
+    
+    .login_main{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 
     .login{
         justify-content: center;
@@ -52,17 +66,17 @@
         margin-right: auto;
     }
 
-    .messages{
-        justify-content: center;
-        align-items: center;
-        background: transparent;
+    .intro{
         text-align: center;
+        font-family: "Courier";
+        color: #3CE9EA;
+        margin-bottom: 30px;
     }
 
-    .login_main{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+    .intro p{
+        text-align: center;
+        font-family: "Courier";
+        color: #3CE9EA;
     }
 
     .input-box{
@@ -86,6 +100,7 @@
         font-family: "Courier";
         padding-left: 15px;
         box-sizing: border-box;
+        font-size: 15px;
     }
 
     .login_btn{
@@ -100,7 +115,7 @@
         font-size: 18px;
         font-weight: bold;
         margin-top: 5px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         cursor: pointer;
 
         transition: background-color 0.3s;
@@ -114,10 +129,15 @@
 <!----------------------------------------------------------------------------------------------------------->
 
 <div class = "login_main">
+
+    <div class="intro">
+        <h2>[ WeirdWired ]</h2>
+        <p>/wɪrd waɪrd/ A collection of random items found to be scattered around The Wired.</p>
+    </div>
     
     <div class = "login">
 
-    <h1>[ Login ]</h1>
+    <!-- <h1>[ Login ]</h1> -->
 
     <form method="POST" action="">
         {% csrf_token %}
@@ -145,7 +165,7 @@
             </ul>
             {% endif %}     
             
-        <p>Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></p>
+        <p>Connect to collect | <a href="{% url 'main:register' %}">Register Now</a></p>
     </div>
 
 </div>

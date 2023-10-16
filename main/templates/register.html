@@ -7,7 +7,11 @@
 {% block content %}
 <style>
     body{
-    background-color: #040404;
+        background-color: #040404;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
     }
 
     h1{
@@ -43,15 +47,54 @@
     .submit_btn{
         background-color: #3CE9EA;
         color: #040404;
+        width: 110px;
+        border: 3px solid #0093BA;
+        box-sizing: border-box;
         font-family: "Courier";
+        font-size: 13px;
         font-weight: bold;
+        cursor: pointer;
+
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+    .submit_btn:hover{
+        background-color: #0093BA;
+    }
+
+    .register-main{
+        width: 100%;
+    }
+
+    .register-cont{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        text-align: left;
+        width: 65%;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input{
+        border: 3px solid #66CDDD;
+        background: transparent;
+        color: #66CDDD;
+        font-family: "Courier";
+        padding-left: 15px;
+        box-sizing: border-box;
+
+        margin-bottom: 20px;
     }
 </style>  
 
 <!----------------------------------------------------------------------------------------------------------->
 
-<div class = "login">
-    
+<div class = "register-main">
+
+    <div class="register-cont">
     <h1>Register</h1>  
 
         <form method="POST" >  
@@ -60,7 +103,7 @@
                 {{ form.as_table }}  
                 <tr>  
                     <td></td>
-                    <td><input type="submit" name="submit" class="submit_btn" value="Daftar"/></td>  
+                    <td><input type="submit" name="submit" class="submit_btn" value="Register"></td>  
                 </tr>  
             </table>  
         </form>
@@ -69,10 +112,10 @@
         <ul>   
             {% for message in messages %}  
                 <li>{{ message }}</li>  
-                {% endfor %}  
+            {% endfor %}  
         </ul>   
     {% endif %}
-
+    </div>
 </div>  
 
 {% endblock content %}
