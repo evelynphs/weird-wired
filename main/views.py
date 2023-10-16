@@ -34,7 +34,7 @@ def show_main(request):
         'class': 'PBP A',
         'items': items,
         'total_item': total_item,
-        #'last_login': request.COOKIES['last_login'],
+        'last_login': request.COOKIES['last_login'],
     }
 
     return render(request, "main.html", context)

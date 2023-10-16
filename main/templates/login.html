@@ -101,6 +101,13 @@
         font-weight: bold;
         margin-top: 5px;
         margin-bottom: 30px;
+        cursor: pointer;
+
+        transition: background-color 0.3s;
+    }
+
+    .login_btn:hover{
+        background-color: #0093BA;
     }
 </style>
 
@@ -131,7 +138,7 @@
 
     <div class="messages">
         {% if messages %}
-            <ul>
+            <ul style="list-style-type: none">
                 {% for message in messages %}
                     <li>{{ message }}</li>
                 {% endfor %}
