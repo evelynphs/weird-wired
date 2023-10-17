@@ -77,10 +77,9 @@
         font-family: "Courier";
         font-size: 20px;
         text-decoration: none;
-        /* font-weight: 600; */
-        background-color: #0093BA;
+        background-color: #087B9C;
         height: 100%;
-        padding: 3px 10px;
+        padding: 3px 15px 3px 15px;
     }
 
     .header{
@@ -97,7 +96,7 @@
     }
 
     .navbar{
-        margin-right: 40px;
+        margin-right: 50px;
     }
 
     .navbar a{
@@ -133,7 +132,7 @@
     .sub-menu-wrap{
         position: absolute;
         top: 5%;
-        right: 40px;
+        right: 50px;
         width: 300px;
         background-color: #0093BA;
         max-height: 0;
@@ -190,19 +189,19 @@
         margin-top: 80px;
     }
 
-    .intro p{
-        font-family: "Courier";
-        font-size: 17px;
-        font-weight: bold;
-        color: #66CDDD;
-        margin-top: 10px;
-    }
-
     .intro h2{
         font-family: "Courier";
         font-weight: bold;
         color: #66CDDD;
         margin-bottom: 0px;
+
+        text-shadow:
+        0px 0px 30px #0093BA,
+        0px 0px 50px #0093BA,
+        0px 0px 50px #0093BA,
+        0px 0px 60px #66CDDD,
+        0px 0px 60px #66CDDD,
+        0px 0px 80px #66CDDD;
     }
 
     .total-collect{
@@ -240,7 +239,7 @@
         transform-style: preserve-3d;
     }
 
-    .cards:hover{
+    .card-individual-cont:hover > .cards{
         cursor: pointer;
         transform: rotateY(180deg);
     }
@@ -256,12 +255,27 @@
         font-family: "Courier";
         font-weight: bold;
         color: #66CDDD;
-        padding: 10px;
+        padding: 15px;
         box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
-    .front-content{
-        margin-top: 30%;
+    .front-content, .back-content{
+        width: 100%;
+        overflow-wrap: anywhere;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desc p{
+        text-align: justify;
+        hyphens: auto;
     }
 
     .front h2{
@@ -282,6 +296,7 @@
 
     .back p{
         font-size: 13px;
+        margin: 0px;
     }
 
     .edit-button{
@@ -364,12 +379,21 @@
     }
 
     .modal-header{
+        display: flex;
+        justify-content: space-around;
         background-color: #66CDDD;
         font-size: 15px;
         box-sizing: border-box;
-        padding: 3px;
+        padding-top: 3px;
+        padding-bottom: 3px;
         font-weight: 800;
         color: #040404;
+    }
+
+    .modal-header label{
+        letter-spacing: -1px;
+        margin-left: 20px;
+        margin-right: 20px;
     }
 
     .modal-body{
@@ -486,12 +510,21 @@
     }
 
     .modal-edit-header{
+        display: flex;
+        justify-content: space-around;
         background-color: #66CDDD;
         font-size: 15px;
         box-sizing: border-box;
-        padding: 3px;
+        padding-top: 3px;
+        padding-bottom: 3px;
         font-weight: 800;
         color: #040404;
+    }
+
+    .modal-edit-header label{
+        letter-spacing: -1px;
+        margin-left: 20px;
+        margin-right: 20px;
     }
 
     .modal-edit-body{
@@ -665,7 +698,7 @@
 <header class="header">
     <a href="#" class="webname">WeirdWired</a>
     <nav class="navbar">
-        <a onclick="openUserMenu()" href="#">{{ name }} ◉</a>
+        <a onclick="openUserMenu()" href="#" class="user-info-show">{{ name }} ◉</a>
 
         <div class="sub-menu-wrap" id="sub-menu-wrap">
             <div class="sub-menu">
@@ -701,7 +734,9 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="modal-header">
+                <label style="margin:0px;">▣ ≡≡≡≡≡≡≡≡≡≡≡≡≡</label>
                 <p style="margin:0px;">[ Add New Item ]</p>
+                <label style="margin:0px;">≡≡≡≡≡≡≡≡≡≡≡≡≡ ▣</label>
             </div>
             <div class="modal-body">
                 <form id="form" onsubmit="return false;">
@@ -710,13 +745,13 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" id="name" name="name"></input>
                     </div>
-                    <label for="price" class="col-form-label">Amount:</label>
+                    <label for="amount" class="col-form-label">Amount:</label>
                     <div class="mb-3">
                         <input type="number" class="form-control" id="amount" name="amount"></input>
                     </div>
                     <label for="description" class="col-form-label">Description:</label>
                     <div class="mb-3" id="modal-textarea">
-                        <textarea class="form-control" id="description" name="description"></textarea>
+                        <textarea class="form-control" id="description" name="description" maxlength="189"></textarea>
                     </div>
                 </form>
             </div>
@@ -733,7 +768,9 @@
     <div class="modal-edit" id="modal-edit">
         <div class="modal-edit-content">
             <div class="modal-edit-header">
+                <label style="margin:0px;">▣ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡</label>
                 <p style="margin:0px;">[ Edit Item ]</p>
+                <label style="margin:0px;">≡≡≡≡≡≡≡≡≡≡≡≡≡≡ ▣</label>
             </div>
             <div class="modal-edit-body">
                 <form id="form-edit" onsubmit="return false;">
@@ -742,13 +779,13 @@
                     <div class="edit-3">
                         <input type="text" class="form-control" id="name-edit" name="name-edit"></input>
                     </div>
-                    <label for="price" class="col-form-label">Amount:</label>
+                    <label for="amount" class="col-form-label">Amount:</label>
                     <div class="edit-3">
                         <input type="number" class="form-control" id="amount-edit" name="amount-edit"></input>
                     </div>
                     <label for="description" class="col-form-label">Description:</label>
                     <div class="edit-3" id="modal-edit-textarea">
-                        <textarea class="form-control" id="description-edit" name="description-edit"></textarea>
+                        <textarea class="form-control" id="description-edit" name="description-edit" maxlength="189"></textarea>
                     </div>
                 </form>
             </div>
@@ -787,25 +824,29 @@
         var items_amount_count = 0
         let htmlString = ``
         items.forEach((item) => {
-            htmlString += `\n<div class="cards">
+            htmlString += `\n<div class="card-individual-cont">
+            <div class="cards">
                 <div class="front">
                     <div class="front-content">
                         <div class="title" id="name-${item.pk}"><h2>${item.fields.name}</h2></div>
                         <div class="amount"><h3>Amount: ${item.fields.amount}</h3></div>
-                        <div id="amount-${item.pk}" style="visibility:hidden"><h2>${item.fields.amount}</h2></div>
+                        <div id="amount-${item.pk}" style="visibility:hidden; font-size:0px; height:0px;"><p>${item.fields.amount}</p></div>
                         <div class="date_added"><p>Added:<br>${item.fields.date_added}</p></div>
                     </div>
                 </div>
                 <div class="back">
-                    <div class="desc" id="desc-${item.pk}"><p>${item.fields.description}</p></div>
-                    <div class="edit_button">
-                        <button class ="edit-button" onclick="editItem(${item.pk})">Edit item</button>
-                    </div>
-                    <div class="delete_button">
-                        <button class ="delete-button" onclick="deleteConfirm(${item.pk})">Delete item</button>
+                    <div class="back-content">
+                        <div class="desc" id="desc-${item.pk}"><p>${item.fields.description}</p></div>
+                        <div class="edit_button">
+                            <button class ="edit-button" onclick="editItem(${item.pk})">Edit item</button>
+                        </div>
+                        <div class="delete_button">
+                            <button class ="delete-button" onclick="deleteConfirm(${item.pk})">Delete item</button>
+                        </div>
                     </div>
                 </div>
-                </div>`
+            </div>
+            </div>`
 
             items_amount_count += item.fields.amount
         })
@@ -825,8 +866,27 @@
     let modalDelete2 = document.getElementById("modal-delete");
     let userMenu = document.getElementById("sub-menu-wrap");
 
-    function openUserMenu(event){
+    function openUserMenu(){
         userMenu.classList.toggle("open-user-menu");
+    }
+
+    //close user info dropdown by clicking anywhere outside of the dropdown
+    window.onclick = function(event){
+        if(!event.target.matches(".user-info-show")){
+            var dropDown = document.getElementsByClassName("sub-menu-wrap");
+            for(var i = 0 ; i<dropDown.length ; i++){
+                var x = dropDown[i];
+
+                if(x.classList.contains("open-user-menu")){
+                    x.classList.remove("open-user-menu");
+                }
+            }
+        }
+    }
+
+    //so that if sub-menu-wrap is clicked, the dropdown doesn't get closed
+    document.getElementById("sub-menu-wrap").onclick = function(event){
+        event.stopPropagation();
     }
     
     function openModal(){
