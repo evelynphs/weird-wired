@@ -16,6 +16,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+import json
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -38,6 +39,7 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
+@csrf_exempt
 def register(request):
     form = UserCreationForm()
 
@@ -50,6 +52,7 @@ def register(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
+@csrf_exempt
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -157,3 +160,21 @@ def delete_item_ajax(request, id):
         return HttpResponse(b"DELETED", status = 201)
     return HttpResponseNotFound()
 
+@csrf_exempt
+def create_item_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_item = Item.objects.create(
+            user = request.user,
+            name = data["name"],
+            price = int(data["amount"]),
+            description = data["description"]
+        )
+
+        new_item.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
