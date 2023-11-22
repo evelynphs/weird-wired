@@ -169,7 +169,7 @@ def create_item_flutter(request):
         new_item = Item.objects.create(
             user = request.user,
             name = data["name"],
-            price = int(data["amount"]),
+            amount = int(data["amount"]),
             description = data["description"]
         )
 
