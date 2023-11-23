@@ -135,6 +135,9 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
 
+# CSRF validation for HTTPS
+CSRF_TRUSTED_ORIGINS = ['https://evelyn-paramesti-tugas.pbp.cs.ui.ac.id']
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 

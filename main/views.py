@@ -39,7 +39,6 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
-@csrf_exempt
 def register(request):
     form = UserCreationForm()
 
@@ -52,7 +51,6 @@ def register(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-@csrf_exempt
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
