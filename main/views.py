@@ -176,3 +176,20 @@ def create_item_flutter(request):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def get_item_flutter(request):
+    items = Item.objects.filter(user=request.user)
+
+    returned_items = []
+    for item in items:
+        returned_items.append({"model": "main.item", 
+                                "pk": item.pk, 
+                                "fields": {"name": item.name, 
+                                            "amount": item.amount, 
+                                            "description": item.description, 
+                                            "date_added": str(item.date_added), 
+                                            "user": item.user.pk}
+                                })
+
+    return JsonResponse({'items':returned_items})
